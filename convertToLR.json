@@ -1,0 +1,68 @@
+{
+  "input geometry": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "1796",
+      "ny": "2321",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
+      "lonlat(centre)": ["15.001164907304375", "63.50071790568658"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "63.0",
+        "longitude0": "15.0",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m", "elevs"],
+        "levels": "1"
+      }
+    ],
+    "halo": "0"
+  },
+  "output geometry": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "719",
+      "ny": "929",
+      "dx": "2.5e3",
+      "dy": "2.5e3",
+      "lonlat(centre)": ["15.001164907304375", "63.50071790568658"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "63.0",
+        "longitude0": "15.0",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m", "elevs"],
+        "levels": "1"
+      }
+    ],
+    "halo": "0"
+  },
+  "states": [
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "background_hr"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "background_lr"
+      }
+    }
+  ]
+}
