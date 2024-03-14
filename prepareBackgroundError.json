@@ -3,10 +3,10 @@
     "function space": "StructuredColumns",
     "grid": {
       "type": "regional",
-      "nx": "719",
-      "ny": "929",
-      "dx": "2.5e3",
-      "dy": "2.5e3",
+      "nx": "1796",
+      "ny": "2321",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
       "lonlat(centre)": ["15.001164907304375", "63.50071790568658"],
       "projection": {
         "type": "lambert_conformal_conic",
@@ -24,7 +24,7 @@
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
           "variables": ["elevs"],
-          "filepath": "background_lr"
+          "filepath": "background_hr"
         }
       }
     ],
@@ -35,38 +35,46 @@
       {
         "date": "2023-12-05T06:00:00Z",
         "variables": ["air_temperature_2m"],
-        "filepath": "background_lr"
+        "filepath": "background_hr"
       }
     ]
   },
   "Covariance": {
     "covariance": "SABER",
     "saber central block": {
-      "saber block name": "BUMP_NICAS",
+      "saber block name": "FastLAM",
       "calibration": {
-        "drivers": {
-          "multivariate strategy": "univariate",
-          "compute nicas": "true",
-          "write local nicas": "true",
-          "write global nicas": "true"
-        },
-        "nicas": {
-          "resolution": "10.0",
-          "max horizontal grid size": "60000.0",
-          "explicit length-scales": "true",
-          "horizontal length-scale": [
-            {
-              "groups": ["air_temperature_2m"],
-              "value": "89.25e3"
+        "multivariate strategy": "univariate",
+        "horizontal length-scale": [
+          {
+            "group": "air_temperature_2m",
+            "value": "30.0e3"
+          }
+        ],
+        "vertical length-scale": [
+          {
+            "group": "air_temperature_2m",
+            "value": "250.0"
+          }
+        ],
+        "fake levels": [
+          {
+            "group": "air_temperature_2m",
+            "profile": ["-200.0", "0.0", "200.0","400.0","600.0","800.0","1000.0","1200.0","1400.0","1600.0","1800.0","2000.0","2200.0", "2400.0"]
+          }
+        ],
+        "skip tests": "true",
+        "number of layers": "1",
+        "resolution": "10.0",
+        "data file": "fastlam_30-250/FastLAM",
+        "output model files": [
+          {
+            "parameter": "normalization",
+            "file": {
+              "filepath": "fastlam_30-250/FastLAM_normalization"
             }
-          ],
-          "vertical length-scale": [
-            {
-            "groups": ["air_temperature_2m"],
-            "value": "1785.0"
-            }
-          ]
-        }
+          }
+        ]
       }
     }
   }

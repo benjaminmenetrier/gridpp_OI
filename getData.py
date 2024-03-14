@@ -124,24 +124,7 @@ with netCDF4.Dataset('observations.nc', 'w', format="NETCDF4") as file:
         time[jo,:] = [date.year, date.month, date.day, date.hour, date.minute, date.second]
         loc[jo,:] = [obs_lons[jo], obs_lats[jo], obs_elevs[jo]]
         cols[jo,0] = obs_values[jo]
-        cols[jo,1] = 0.1
-
-# Write 5 observations for tests
-with netCDF4.Dataset('observations_5.nc', 'w', format="NETCDF4") as file:
-    nobs = file.createDimension('nobs', 5)
-    ntime = file.createDimension('ntime', 6)
-    nloc = file.createDimension('nloc', 3)
-    ncol = file.createDimension('ncol', 2)
-    time = file.createVariable('time',np.int32,('nobs', 'ntime'))
-    loc = file.createVariable('loc',np.float64,('nobs', 'nloc'))
-    cols = file.createVariable('cols',np.float64,('nobs', 'ncol'))
-    cols.column_0 = "ObsVal"
-    cols.column_1 = "ObsErr"
-    for jo in range(0, 5):
-        time[jo,:] = [date.year, date.month, date.day, date.hour, date.minute, date.second]
-        loc[jo,:] = [obs_lons[jo], obs_lats[jo], obs_elevs[jo]]
-        cols[jo,0] = obs_values[jo]
-        cols[jo,1] = 0.1
+        cols[jo,1] = 1.2
 
 #%%
 """

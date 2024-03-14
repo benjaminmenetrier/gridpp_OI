@@ -1,0 +1,81 @@
+{
+  "resolution": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "200",
+      "ny": "200",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
+      "lonlat(centre)": ["7.2", "61.15"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "61.15",
+        "longitude0": "7.2",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["elevs"],
+          "filepath": "background_small"
+        }
+      }
+    ],
+    "halo": "1"
+  },
+  "Background": {
+    "state": [
+      {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m"],
+        "filepath": "background_small"
+      }
+    ]
+  },
+  "Covariance": {
+    "covariance": "SABER",
+    "saber central block": {
+      "saber block name": "FastLAM",
+      "calibration": {
+        "multivariate strategy": "univariate",
+        "horizontal length-scale": [
+          {
+            "group": "air_temperature_2m",
+            "value": "89.25e3"
+          }
+        ],
+        "vertical length-scale": [
+          {
+            "group": "air_temperature_2m",
+            "value": "1785.0"
+          }
+        ],
+        "fake levels": [
+          {
+            "group": "air_temperature_2m",
+            "profile": ["0.0","200.0","400.0","600.0","800.0","1000.0","1200.0","1400.0","1600.0","1800.0","2000.0","2200.0"] 
+          }
+        ],
+        "skip tests": "true",
+        "number of layers": "1",
+        "resolution": "10.0",
+        "data file": "FastLAM_small",
+        "output model files": [
+          {
+            "parameter": "normalization",
+            "file": {
+              "filepath": "FastLAM_normalization_small"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
