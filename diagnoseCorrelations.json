@@ -1,0 +1,296 @@
+{
+  "resolution": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "719",
+      "ny": "929",
+      "dx": "2.5e3",
+      "dy": "2.5e3",
+      "lonlat(centre)": ["15.001164907304375", "63.50071790568658"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "63.0",
+        "longitude0": "15.0",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["elevs"],
+          "filepath": "background_lr"
+        }
+      }
+    ],
+    "halo": "1"
+  },
+  "Background": {
+    "state": [
+      {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m"],
+        "filepath": "background_lr"
+      }
+    ]
+  },
+  "Covariance": {
+    "covariance": "SABER",
+    "ensemble": {
+      "state": [
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000001"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000002"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000003"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000004"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000005"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000006"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000007"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000008"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000009"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000010"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000011"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000012"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000013"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000014"
+        },
+        {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "member_lr_000015"
+        }
+      ],
+      "date": "2023-12-05T06:00:00Z",
+      "variables": ["air_temperature_2m"],
+      "members": "15"
+    },
+    "saber central block": {
+      "saber block name": "BUMP_NICAS",
+      "calibration": {
+        "drivers": {
+          "compute covariance": "true",
+          "compute correlation": "true",
+          "compute variance": "true",
+          "multivariate strategy": "univariate",
+          "compute moments": "true",
+          "write diagnostics": "true",
+          "internal dirac test": "true"
+        },
+        "sampling": {
+          "computation grid size": "5000",
+          "diagnostic grid size": "3000",
+          "distance classes": "20",
+          "distance class width": "10.0e3",
+          "reduced levels": "1",
+          "local diagnostic": "true",
+          "averaging length-scale": "80.0e3",
+          "interpolation type": "c0"
+        },
+        "fit": {
+          "number of components": "1"
+        },
+        "dirac": [
+          {
+            "longitude": "4.559584150085955",
+            "latitude": "54.670873023913344",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "3.259224505056274",
+            "latitude": "58.766937965821654",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "1.5942173365367935",
+            "latitude": "62.8657167922712",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "-0.6102721625027314",
+            "latitude": "66.93895912726825",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "-3.658182166931436",
+            "latitude": "70.9498364956633",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "11.493038518412535",
+            "latitude": "55.105481101286074",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "11.047993847103758",
+            "latitude": "59.25927727938628",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "10.473789765795484",
+            "latitude": "63.4294959555923",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "9.704805063777952",
+            "latitude": "67.59408631675385",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "8.622078763743627",
+            "latitude": "71.72692569914491",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "18.50876009344608",
+            "latitude": "55.1054249167685",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "18.95403192809835",
+            "latitude": "59.25921354437594",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "19.528528519272083",
+            "latitude": "63.42942282692857",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "20.297903780386516",
+            "latitude": "67.59400107866827",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "21.381177305501875",
+            "latitude": "71.72682408065145",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "25.442172679693954",
+            "latitude": "54.67070659989068",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "26.742741897075604",
+            "latitude": "58.76674968962965",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "28.408012663804005",
+            "latitude": "62.8655016186614",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "30.612841854107636",
+            "latitude": "66.93870983670135",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          },
+          {
+            "longitude": "33.66120129389188",
+            "latitude": "70.9495422386421",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          }
+        ],
+        "output model files": [
+          {
+            "parameter": "stddev",
+            "file": {
+              "filepath": "stddev"
+            }
+          },
+          {
+            "parameter": "cor_rh",
+            "file": {
+              "filepath": "cor_rh"
+            }
+          },
+          {
+            "parameter": "dirac_mom",
+            "file": {
+              "filepath": "dirac_mom"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

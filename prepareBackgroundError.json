@@ -48,13 +48,13 @@
         "horizontal length-scale": [
           {
             "group": "air_temperature_2m",
-            "value": "30.0e3"
+            "value": "100.0e3"
           }
         ],
         "vertical length-scale": [
           {
             "group": "air_temperature_2m",
-            "value": "250.0"
+            "value": "500.0"
           }
         ],
         "fake levels": [
@@ -66,12 +66,12 @@
         "skip tests": "true",
         "number of layers": "1",
         "resolution": "10.0",
-        "data file": "fastlam_30-250/FastLAM",
+        "data file": "fastlam_100-500/FastLAM",
         "output model files": [
           {
             "parameter": "normalization",
             "file": {
-              "filepath": "fastlam_30-250/FastLAM_normalization"
+              "filepath": "fastlam_100-500/FastLAM_normalization"
             }
           }
         ]

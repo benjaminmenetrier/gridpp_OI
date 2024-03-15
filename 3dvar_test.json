@@ -59,13 +59,13 @@
               }
             ],
             "skip tests": "true",
-            "data file": "fastlam_30-500/FastLAM",
+            "data file": "fastlam_100-500/FastLAM",
             "input model files": [
               {
                 "parameter": "normalization",
                 "number of components": "1",
                 "file": {
-                  "filepath": "fastlam_30-500/FastLAM_normalization"
+                  "filepath": "fastlam_100-500/FastLAM_normalization"
                 }
               }
             ]
@@ -89,10 +89,10 @@
           "ObsType": "default",
           "ObsData": {
             "ObsDataInScreened": {
-              "filenames": ["observations_assim_1"]
+              "filenames": ["observations_assim"]
             },
             "ObsDataOutScreened": {
-              "filename": "observations_3dvar_1"
+              "filename": "observations_3dvar"
             },
             "obsvalue": "ObsVal"
           },
@@ -111,7 +111,7 @@
     "algorithm": "DRIPCG"
   },
   "output": {
-    "filepath": "analysis_3dvar_1",
+    "filepath": "analysis_3dvar",
     "date": "2023-12-05T06:00:00Z"
   },
   "variational": {

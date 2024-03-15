@@ -1,0 +1,858 @@
+{
+  "resolution": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "949",
+      "ny": "1069",
+      "dx": "2.5e3",
+      "dy": "2.5e3",
+      "lonlat(centre)": ["17.50088882446289","63.300415039062486"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "63.3",
+        "longitude0": "15.0",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["elevs"],
+          "filepath": "20231206_background_meps"
+        }
+      }
+    ],
+    "halo": "1"
+  },
+  "Background": {
+    "state": [
+      {
+        "date": "2023-12-06T06:00:00Z",
+        "variables": ["air_temperature_2m"],
+        "filepath": "20231206_background_meps"
+      }
+    ]
+  },
+  "Covariance": {
+    "covariance": "SABER",
+    "ensemble": {
+      "state": [
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231126_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231127_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231128_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231129_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231130_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231201_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231202_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231204_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231205_member_meps_000014"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000000"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000001"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000002"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000009"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000012"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000003"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000004"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000007"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000010"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000013"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000005"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000006"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000008"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000011"
+        },
+        {
+          "date": "2023-12-06T06:00:00Z",
+          "variables": ["air_temperature_2m"],
+          "filepath": "20231206_member_meps_000014"
+        }
+      ],
+      "date": "2023-12-06T06:00:00Z",
+      "variables": ["air_temperature_2m"],
+      "members": "150"
+    },
+    "saber central block": {
+      "saber block name": "BUMP_NICAS",
+      "calibration": {
+        "io": {
+          "files prefix": "meps"
+        },
+        "drivers": {
+          "compute covariance": "false",
+          "compute correlation": "true",
+          "compute variance": "false",
+          "multivariate strategy": "univariate",
+          "compute moments": "true",
+          "write diagnostics": "true",
+          "internal dirac test": "true"
+        },
+        "ensemble size": {
+          "sub-ensembles": "30"
+        },
+        "sampling": {
+          "computation grid size": "5000",
+          "diagnostic grid size": "3000",
+          "distance classes": "40",
+          "distance class width": "10.0e3",
+          "reduced levels": "1",
+          "local diagnostic": "true",
+          "averaging length-scale": "200.0e3",
+          "interpolation type": "c0"
+        },
+        "fit": {
+          "number of components": "1"
+        },
+        "dirac": [
+          {
+            "longitude": "20.331789016723633",
+            "latitude": "57.209712982177734",
+            "level": "1",
+            "variable": "air_temperature_2m"
+          }
+        ],
+        "local profiles": [
+          {
+            "longitude": "20.331789016723633",
+            "latitude": "57.209712982177734",
+            "name": "1"
+          }
+        ],
+        "output model files": [
+          {
+            "parameter": "dirac_mom",
+            "file": {
+              "filepath": "meps_dirac_mom"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

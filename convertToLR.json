@@ -63,6 +63,186 @@
         "variables": ["air_temperature_2m", "elevs"],
         "filepath": "background_lr"
       }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000001"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000001"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000002"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000002"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000003"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000003"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000004"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000004"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000005"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000005"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000006"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000006"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000007"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000007"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000008"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000008"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000009"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000009"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000010"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000010"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000011"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000011"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000012"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000012"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000013"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000013"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000014"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000014"
+      }
+    },
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_hr_000015"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "elevs"],
+        "filepath": "member_lr_000015"
+      }
     }
   ]
 }

@@ -12,31 +12,88 @@ import numpy as np
 import netCDF4
 from datetime import datetime
 
-# Assemble data at this time point
-frt = yrlib.util.date_to_unixtime(20231205,6)
-
 # Variable
 forecast_variable = "air_temperature_2m"
 
+# List of cycles
+yyyymmdd_list = [20231126,20231127,20231128,20231129,20231130,20231201,20231202,20231204,20231205,20231206]
+
+for yyyymmdd in yyyymmdd_list:
+  # Assemble data at this time point
+  frt = yrlib.util.date_to_unixtime(yyyymmdd,6)
+
+  # Getting the data from yr
+  model = yrlib.model.Meps(include_ensemble=True)
+  dataset = model.get(frt, [forecast_variable], start_time=frt, end_time= frt)
+  meps_values = dataset.fields[forecast_variable].values[0,0:15,:,:]
+
+  # The corresponding grid points
+  meps_grid = dataset.gridpp_grid
+  meps_lats = meps_grid.get_lats()
+  meps_lons = meps_grid.get_lons()
+  meps_elevs = meps_grid.get_elevs()
+
+  # Write meps background (ensemble mean)
+  meps_avg = np.average(meps_values, axis=0)
+  with netCDF4.Dataset(str(yyyymmdd) + '_background_meps.nc', 'w', format="NETCDF4") as file:
+    nx = file.createDimension('nx', meps_avg.shape[1])
+    ny = file.createDimension('ny', meps_avg.shape[0])
+    nz = file.createDimension('nz_' + forecast_variable, 1)
+    lats = file.createVariable('lats',np.float64,('ny','nx'))
+    lons = file.createVariable('lons',np.float64,('ny','nx'))
+    elevs = file.createVariable('elevs',np.float64,('ny','nx'))
+    values = file.createVariable(forecast_variable,np.float64,('nz_' + forecast_variable,'ny','nx'))
+    lats[:,:] = meps_lats[:,:]
+    lons[:,:] = meps_lons[:,:]
+    elevs[:,:] = meps_elevs[:,:]
+    values[0,:,:] = meps_avg[:,:]
+
+  for ie in range(0, meps_values.shape[0]):
+    # Write meps members
+    with netCDF4.Dataset(str(yyyymmdd) + '_member_meps_' + str(ie).zfill(6) + '.nc', 'w', format="NETCDF4") as file:
+      nx = file.createDimension('nx', meps_avg.shape[1])
+      ny = file.createDimension('ny', meps_avg.shape[0])
+      nz = file.createDimension('nz_' + forecast_variable, 1)
+      lats = file.createVariable('lats',np.float64,('ny','nx'))
+      lons = file.createVariable('lons',np.float64,('ny','nx'))
+      elevs = file.createVariable('elevs',np.float64,('ny','nx'))
+      values = file.createVariable(forecast_variable,np.float64,('nz_' + forecast_variable,'ny','nx'))
+      lats[:,:] = meps_lats[:,:]
+      lons[:,:] = meps_lons[:,:]
+      elevs[:,:] = meps_elevs[:,:]
+      values[0,:,:] = meps_values[ie,:,:]
+
+exit()
+
+#%%
 """
-        1. Import a single MEPS file
-""" 
+    4. Load finer grid (1km resolution)
+"""
 
-# Getting the data from yr
-model = yrlib.model.Meps(include_ensemble=False)
-dataset = model.get(frt, [forecast_variable],  
-        start_time=frt, end_time= frt)
+# Read fine grid from file
+with netCDF4.Dataset('fine_grid.nc', 'r') as file:
+  blats = file.variables['latitude'][:,:]
+  blons = file.variables['longitude'][:,:]
+  belevs = file.variables['altitude'][:,:]
 
+# Downscaling
+bgrid = gridpp.Grid(blats, blons, belevs)
 
-# The values of the forecast variable
-meps_values = dataset.fields[forecast_variable].values
-meps_values = meps_values[0,0,:,:]
-
-# The corresponding grid points
-meps_grid = dataset.gridpp_grid
-meps_lats = meps_grid.get_lats()
-meps_lons = meps_grid.get_lons()
-meps_elevs = meps_grid.get_elevs()
+# Write high-resolution background (ensemble mean)
+meps_avg = np.average(meps_values, axis=0)
+background = gridpp.nearest(meps_grid, bgrid, meps_avg)
+with netCDF4.Dataset('background_hr.nc', 'w', format="NETCDF4") as file:
+  nx = file.createDimension('nx', background.shape[1])
+  ny = file.createDimension('ny', background.shape[0])
+  nz = file.createDimension('nz_' + forecast_variable, 1)
+  lats = file.createVariable('lats',np.float64,('ny','nx'))
+  lons = file.createVariable('lons',np.float64,('ny','nx'))
+  elevs = file.createVariable('elevs',np.float64,('ny','nx'))
+  values = file.createVariable(forecast_variable,np.float64,('nz_' + forecast_variable,'ny','nx'))
+  lats[:,:] = blats[:,:]
+  lons[:,:] = blons[:,:]
+  elevs[:,:] = belevs[:,:]
+  values[0,:,:] = background[:,:]
 
 #%%
 """
@@ -111,46 +168,17 @@ date = datetime(yyyy, mm, dd, hh, 0, 0)
 
 # Write observations
 with netCDF4.Dataset('observations.nc', 'w', format="NETCDF4") as file:
-    nobs = file.createDimension('nobs', obsSize)
-    ntime = file.createDimension('ntime', 6)
-    nloc = file.createDimension('nloc', 3)
-    ncol = file.createDimension('ncol', 2)
-    time = file.createVariable('time',np.int32,('nobs', 'ntime'))
-    loc = file.createVariable('loc',np.float64,('nobs', 'nloc'))
-    cols = file.createVariable('cols',np.float64,('nobs', 'ncol'))
-    cols.column_0 = "ObsVal"
-    cols.column_1 = "ObsErr"
-    for jo in range(0, obsSize):
-        time[jo,:] = [date.year, date.month, date.day, date.hour, date.minute, date.second]
-        loc[jo,:] = [obs_lons[jo], obs_lats[jo], obs_elevs[jo]]
-        cols[jo,0] = obs_values[jo]
-        cols[jo,1] = 1.2
-
-#%%
-"""
-    4. Load finer grid (1km resolution)
-"""
-
-# Read fine grid from file
-with netCDF4.Dataset('fine_grid.nc', 'r') as file:
-    blats = file.variables['latitude'][:,:]
-    blons = file.variables['longitude'][:,:]
-    belevs = file.variables['altitude'][:,:]
-
-# Downscaling
-bgrid = gridpp.Grid(blats, blons, belevs)
-background = gridpp.nearest(meps_grid, bgrid, meps_values)
-
-# Write high-resolution background
-with netCDF4.Dataset('background_hr.nc', 'w', format="NETCDF4") as file:
-    nx = file.createDimension('nx', background.shape[1])
-    ny = file.createDimension('ny', background.shape[0])
-    nz = file.createDimension('nz_' + forecast_variable, 1)
-    lats = file.createVariable('lats',np.float64,('ny','nx'))
-    lons = file.createVariable('lons',np.float64,('ny','nx'))
-    elevs = file.createVariable('elevs',np.float64,('ny','nx'))
-    values = file.createVariable(forecast_variable,np.float64,('nz_' + forecast_variable,'ny','nx'))
-    lats[:,:] = blats[:,:]
-    lons[:,:] = blons[:,:]
-    elevs[:,:] = belevs[:,:]
-    values[0,:,:] = background[:,:]
+  nobs = file.createDimension('nobs', obsSize)
+  ntime = file.createDimension('ntime', 6)
+  nloc = file.createDimension('nloc', 3)
+  ncol = file.createDimension('ncol', 2)
+  time = file.createVariable('time',np.int32,('nobs', 'ntime'))
+  loc = file.createVariable('loc',np.float64,('nobs', 'nloc'))
+  cols = file.createVariable('cols',np.float64,('nobs', 'ncol'))
+  cols.column_0 = "ObsVal"
+  cols.column_1 = "ObsErr"
+  for jo in range(0, obsSize):
+    time[jo,:] = [date.year, date.month, date.day, date.hour, date.minute, date.second]
+    loc[jo,:] = [obs_lons[jo], obs_lats[jo], obs_elevs[jo]]
+    cols[jo,0] = obs_values[jo]
+    cols[jo,1] = 1.2

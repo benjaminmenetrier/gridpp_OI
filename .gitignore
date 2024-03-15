@@ -1,2 +1,4 @@
 *.nc
 *.jpg
+log
+test_results
