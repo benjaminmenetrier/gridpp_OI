@@ -19,7 +19,7 @@
     "partitioner": "checkerboard",
     "groups": [
       {
-        "variables": ["air_temperature_2m", "elevs"],
+        "variables": ["air_temperature_2m", "oro"],
         "levels": "1"
       }
     ],
@@ -45,7 +45,7 @@
     "partitioner": "checkerboard",
     "groups": [
       {
-        "variables": ["air_temperature_2m", "elevs"],
+        "variables": ["air_temperature_2m", "oro"],
         "levels": "1"
       }
     ],
@@ -60,7 +60,7 @@
       },
       "output": {
         "date": "2023-12-05T06:00:00Z",
-        "variables": ["air_temperature_2m", "elevs"],
+        "variables": ["air_temperature_2m", "oro"],
         "filepath": "stddev"
       }
     }

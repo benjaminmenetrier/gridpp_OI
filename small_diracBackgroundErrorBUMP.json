@@ -23,8 +23,8 @@
         "levels": "1",
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
-          "variables": ["elevs"],
-          "filepath": "background_small"
+          "variables": ["oro"],
+          "filepath": "small_background"
         }
       }
     ],
@@ -35,7 +35,7 @@
       {
         "date": "2023-12-05T06:00:00Z",
         "variables": ["air_temperature_2m"],
-        "filepath": "background_small"
+        "filepath": "small_background"
       }
     ]
   },
@@ -47,9 +47,22 @@
         "drivers": {
           "multivariate strategy": "univariate",
           "read local nicas": "true"
+        },
+        "io": {
+          "files prefix": "small"
         }
       }
-    }
+    },
+    "saber outer blocks": [
+      {
+        "saber block name": "StdDev",
+        "read": {
+          "model file": {
+            "filepath": "small_stddev"
+          }
+        }
+      }
+    ]
   },
   "dirac": {
     "lon": ["7.2"],
@@ -60,6 +73,6 @@
   "output dirac": {
     "date": "2023-12-05T06:00:00Z",
     "variables": ["air_temperature_2m"],
-    "filepath": "dirac_small_bump"
+    "filepath": "small_dirac_bump"
   }
 }

@@ -16,7 +16,8 @@ nT=1
 
 # Prepare background error
 #mpirun -n 4 ${HOME}/build/oops-bundle/bin/quench_convertstate.x createStdDev.json >> log
-mpirun -n 4 ${HOME}/build/oops-bundle/bin/quench_error_covariance_toolbox.x prepareBackgroundError.json >> log
+#mpirun -n 4 ${HOME}/build/oops-bundle/bin/quench_error_covariance_toolbox.x prepareBackgroundError.json
+#mpirun -n 4 ${HOME}/build/oops-bundle/bin/quench_error_covariance_toolbox.x diracBackgroundError.json
 
 for iT in $(seq 1 ${nT}); do
   # Split observation
@@ -30,7 +31,7 @@ for iT in $(seq 1 ${nT}); do
 
   # Run OI
   echo "Run OI - "${iT}
-#  python runOI.py observations_assim analysis_OI >> log
+#  python runOI.py background_hr observations_assim analysis_OI >> log
 #  ncdiff -O analysis_OI.nc background_hr.nc increment_OI.nc >> log
 
   # OI analysis departure for control observations
@@ -40,11 +41,11 @@ for iT in $(seq 1 ${nT}); do
 
   # Run 3DVar
   echo "Run 3DVar - "${iT}
-  mpirun -n 4 ${HOME}/build/oops-bundle/bin/quench_variational.x 3dvar_test.json >> log
+  mpirun -n 4 ${HOME}/build/oops-bundle_debug/bin/quench_variational.x 3dvar_test.json
   ncdiff -O analysis_3dvar.nc background_hr.nc increment_3dvar.nc >> log
 
   # 3DVar analysis departure for control observations
   echo "3DVar analysis departure for control observations - "${iT}
-  mpirun -n 4 ${HOME}/build/oops-bundle/bin/quench_hofx.x hofx_test_3dvar.json >> log
-  python compareObservations.py 3DVar observations_control_3dvar.nc >> test_results
+#  mpirun -n 4 ${HOME}/build/oops-bundle/bin/quench_hofx.x hofx_test_3dvar.json >> log
+#  python compareObservations.py 3DVar observations_control_3dvar.nc >> test_results
 done

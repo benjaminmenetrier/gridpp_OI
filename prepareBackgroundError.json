@@ -23,9 +23,13 @@
         "levels": "1",
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
-          "variables": ["elevs"],
+          "variables": ["oro"],
           "filepath": "background_hr"
         }
+      },
+      {
+        "variables": ["air_temperature_2m_fakeLevels"],
+        "levels": "14"
       }
     ],
     "halo": "1"
@@ -43,39 +47,50 @@
     "covariance": "SABER",
     "saber central block": {
       "saber block name": "FastLAM",
+      "fields metadata": {
+        "air_temperature_2m_fakeLevels": {
+          "vert_coord": "vert_coord_1"
+        }
+      },
       "calibration": {
         "multivariate strategy": "univariate",
         "horizontal length-scale": [
           {
-            "group": "air_temperature_2m",
-            "value": "100.0e3"
+            "group": "air_temperature_2m_fakeLevels",
+            "value": "30.0e3"
           }
         ],
         "vertical length-scale": [
           {
-            "group": "air_temperature_2m",
-            "value": "500.0"
-          }
-        ],
-        "fake levels": [
-          {
-            "group": "air_temperature_2m",
-            "profile": ["-200.0", "0.0", "200.0","400.0","600.0","800.0","1000.0","1200.0","1400.0","1600.0","1800.0","2000.0","2200.0", "2400.0"]
+            "group": "air_temperature_2m_fakeLevels",
+            "value": "0.0"
           }
         ],
         "skip tests": "true",
         "number of layers": "1",
         "resolution": "10.0",
-        "data file": "fastlam_100-500/FastLAM",
+        "data file": "FastLAM",
         "output model files": [
           {
             "parameter": "normalization",
             "file": {
-              "filepath": "fastlam_100-500/FastLAM_normalization"
+              "filepath": "FastLAM_normalization"
             }
           }
         ]
       }
-    }
+    },
+    "saber outer blocks": [
+      {
+        "saber block name": "FakeLevels",
+        "fields metadata": {
+          "air_temperature_2m": {
+            "vert_coord": "vert_coord_0"
+          }
+        },
+        "fake levels": ["-200.0", "0.0", "200.0","400.0","600.0","800.0","1000.0","1200.0","1400.0","1600.0","1800.0","2000.0","2200.0", "2400.0"],
+        "vertical length-scale": "500.0"
+      }
+    ]
   }
 }

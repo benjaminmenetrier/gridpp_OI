@@ -23,7 +23,7 @@
         "levels": "1",
         "vert_coord from file": {
           "date": "2023-12-06T06:00:00Z",
-          "variables": ["elevs"],
+          "variables": ["oro"],
           "filepath": "20231206_background_meps"
         }
       }
@@ -849,6 +849,18 @@
             "parameter": "dirac_mom",
             "file": {
               "filepath": "meps_dirac_mom"
+            }
+          },
+          {
+            "parameter": "dirac_diag_cor",
+            "file": {
+              "filepath": "meps_dirac_diag_cor"
+            }
+          },
+          {
+            "parameter": "cor_rh",
+            "file": {
+              "filepath": "meps_cor_rh"
             }
           }
         ]

@@ -23,7 +23,7 @@
         "levels": "1",
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
-          "variables": ["elevs"],
+          "variables": ["oro"],
           "filepath": "background_hr"
         }
       }
@@ -117,7 +117,7 @@
               "levels": "1",
               "vert_coord from file": {
                 "date": "2023-12-05T06:00:00Z",
-                "variables": ["elevs"],
+                "variables": ["oro"],
                 "filepath": "background_lr"
               }
             }

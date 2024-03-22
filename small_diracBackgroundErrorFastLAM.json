@@ -23,9 +23,13 @@
         "levels": "1",
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
-          "variables": ["elevs"],
-          "filepath": "background_small"
+          "variables": ["oro"],
+          "filepath": "small_background"
         }
+      },
+      {
+        "variables": ["air_temperature_2m_fakeLevels"],
+        "levels": "27"
       }
     ],
     "halo": "1"
@@ -35,7 +39,7 @@
       {
         "date": "2023-12-05T06:00:00Z",
         "variables": ["air_temperature_2m"],
-        "filepath": "background_small"
+        "filepath": "small_background"
       }
     ]
   },
@@ -43,37 +47,61 @@
     "covariance": "SABER",
     "saber central block": {
       "saber block name": "FastLAM",
+      "fields metadata": {
+        "air_temperature_2m_fakeLevels": {
+          "vert_coord": "vert_coord_1"
+        }
+      },
       "read": {
         "multivariate strategy": "univariate",
-        "fake levels": [
-          {
-            "group": "air_temperature_2m",
-            "profile": ["0.0","200.0","400.0","600.0","800.0","1000.0","1200.0","1400.0","1600.0","1800.0","2000.0","2200.0"] 
-          }
-        ],
         "skip tests": "true",
-        "data file": "FastLAM_small",
+        "data file": "small_fastlam",
         "input model files": [
           {
             "parameter": "normalization",
             "number of components": "1",
             "file": {
-              "filepath": "FastLAM_normalization_small"
+              "filepath": "small_fastlam_normalization"
             }
           }
         ]
       }
-    }
+    },
+    "saber outer blocks": [
+      {
+        "saber block name": "FakeLevels",
+        "read": {
+          "number of fake levels": "27",
+          "input model files": [
+            {
+              "parameter": "weight",
+              "file": {
+                "overriding variables": ["air_temperature_2m_fakeLevels"],
+                "filepath": "small_fakelevels_weight"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "saber block name": "StdDev",
+        "read": {
+          "model file": {
+            "filepath": "small_stddev"
+          }
+        }
+      }
+    ]
   },
   "dirac": {
-    "lon": ["7.2", "8.30678"],
-    "lat": ["61.15", "61.6177"],
-    "level": ["1", "1"],
-    "variable": ["air_temperature_2m", "air_temperature_2m"]
+    "lon": ["7.2"],
+    "lat": ["61.15"],
+    "level": ["1"],
+    "variable": ["air_temperature_2m"]
   },
   "output dirac": {
     "date": "2023-12-05T06:00:00Z",
     "variables": ["air_temperature_2m"],
-    "filepath": "dirac_small_fastlam"
+    "filepath": "small_dirac_fastlam"
   }
 }

@@ -15,55 +15,19 @@ from datetime import datetime
 # Variable
 forecast_variable = "air_temperature_2m"
 
-# List of cycles
-yyyymmdd_list = [20231126,20231127,20231128,20231129,20231130,20231201,20231202,20231204,20231205,20231206]
+# Assemble data at this time point
+frt = yrlib.util.date_to_unixtime(20231205,6)
 
-for yyyymmdd in yyyymmdd_list:
-  # Assemble data at this time point
-  frt = yrlib.util.date_to_unixtime(yyyymmdd,6)
+# Getting the data from yr
+model = yrlib.model.Meps(include_ensemble=False)
+dataset = model.get(frt, [forecast_variable], start_time=frt, end_time= frt)
+meps_values = dataset.fields[forecast_variable].values[0,0,:,:]
 
-  # Getting the data from yr
-  model = yrlib.model.Meps(include_ensemble=True)
-  dataset = model.get(frt, [forecast_variable], start_time=frt, end_time= frt)
-  meps_values = dataset.fields[forecast_variable].values[0,0:15,:,:]
-
-  # The corresponding grid points
-  meps_grid = dataset.gridpp_grid
-  meps_lats = meps_grid.get_lats()
-  meps_lons = meps_grid.get_lons()
-  meps_elevs = meps_grid.get_elevs()
-
-  # Write meps background (ensemble mean)
-  meps_avg = np.average(meps_values, axis=0)
-  with netCDF4.Dataset(str(yyyymmdd) + '_background_meps.nc', 'w', format="NETCDF4") as file:
-    nx = file.createDimension('nx', meps_avg.shape[1])
-    ny = file.createDimension('ny', meps_avg.shape[0])
-    nz = file.createDimension('nz_' + forecast_variable, 1)
-    lats = file.createVariable('lats',np.float64,('ny','nx'))
-    lons = file.createVariable('lons',np.float64,('ny','nx'))
-    elevs = file.createVariable('elevs',np.float64,('ny','nx'))
-    values = file.createVariable(forecast_variable,np.float64,('nz_' + forecast_variable,'ny','nx'))
-    lats[:,:] = meps_lats[:,:]
-    lons[:,:] = meps_lons[:,:]
-    elevs[:,:] = meps_elevs[:,:]
-    values[0,:,:] = meps_avg[:,:]
-
-  for ie in range(0, meps_values.shape[0]):
-    # Write meps members
-    with netCDF4.Dataset(str(yyyymmdd) + '_member_meps_' + str(ie).zfill(6) + '.nc', 'w', format="NETCDF4") as file:
-      nx = file.createDimension('nx', meps_avg.shape[1])
-      ny = file.createDimension('ny', meps_avg.shape[0])
-      nz = file.createDimension('nz_' + forecast_variable, 1)
-      lats = file.createVariable('lats',np.float64,('ny','nx'))
-      lons = file.createVariable('lons',np.float64,('ny','nx'))
-      elevs = file.createVariable('elevs',np.float64,('ny','nx'))
-      values = file.createVariable(forecast_variable,np.float64,('nz_' + forecast_variable,'ny','nx'))
-      lats[:,:] = meps_lats[:,:]
-      lons[:,:] = meps_lons[:,:]
-      elevs[:,:] = meps_elevs[:,:]
-      values[0,:,:] = meps_values[ie,:,:]
-
-exit()
+# The corresponding grid points
+meps_grid = dataset.gridpp_grid
+meps_lat = meps_grid.get_lats()
+meps_lon = meps_grid.get_lons()
+meps_oro = meps_grid.get_elevs()
 
 #%%
 """
@@ -72,27 +36,26 @@ exit()
 
 # Read fine grid from file
 with netCDF4.Dataset('fine_grid.nc', 'r') as file:
-  blats = file.variables['latitude'][:,:]
-  blons = file.variables['longitude'][:,:]
-  belevs = file.variables['altitude'][:,:]
+  blat = file.variables['latitude'][:,:]
+  blon = file.variables['longitude'][:,:]
+  boro = file.variables['altitude'][:,:]
 
 # Downscaling
-bgrid = gridpp.Grid(blats, blons, belevs)
+bgrid = gridpp.Grid(blat, blon, boro)
 
-# Write high-resolution background (ensemble mean)
-meps_avg = np.average(meps_values, axis=0)
-background = gridpp.nearest(meps_grid, bgrid, meps_avg)
+# Write high-resolution background
+background = gridpp.nearest(meps_grid, bgrid, meps_values)
 with netCDF4.Dataset('background_hr.nc', 'w', format="NETCDF4") as file:
   nx = file.createDimension('nx', background.shape[1])
   ny = file.createDimension('ny', background.shape[0])
   nz = file.createDimension('nz_' + forecast_variable, 1)
-  lats = file.createVariable('lats',np.float64,('ny','nx'))
-  lons = file.createVariable('lons',np.float64,('ny','nx'))
-  elevs = file.createVariable('elevs',np.float64,('ny','nx'))
+  lat = file.createVariable('lat',np.float64,('ny','nx'))
+  lon = file.createVariable('lon',np.float64,('ny','nx'))
+  oro = file.createVariable('oro',np.float64,('ny','nx'))
   values = file.createVariable(forecast_variable,np.float64,('nz_' + forecast_variable,'ny','nx'))
-  lats[:,:] = blats[:,:]
-  lons[:,:] = blons[:,:]
-  elevs[:,:] = belevs[:,:]
+  lat[:,:] = blat[:,:]
+  lon[:,:] = blon[:,:]
+  oro[:,:] = boro[:,:]
   values[0,:,:] = background[:,:]
 
 #%%
@@ -109,25 +72,25 @@ netatmo_data = yrlib.netatmo.get([frt], short_variable) # ta = temperature, uu =
 # Unpack values, and convert to Kelvin
 net_values = netatmo_data.values + 273.15 
 net_values_0 = net_values[0,:] # Select only first slice (if there are several)
-net_lons = netatmo_data.lons
-net_lats = netatmo_data.lats
-net_elevs = netatmo_data.elevs
+net_lon = netatmo_data.lons
+net_lat = netatmo_data.lats
+net_oro = netatmo_data.elevs
 
 
 # Removing na's
 valid_indices = np.where((~np.isnan(net_values_0)))[0]
 
 net_values_0 = net_values_0[valid_indices]
-net_lons = net_lons[valid_indices]
-net_lats = net_lats[valid_indices]
-net_elevs = net_elevs[valid_indices]
+net_lon = net_lon[valid_indices]
+net_lat = net_lat[valid_indices]
+net_oro = net_oro[valid_indices]
 
 #%%
 """
         3. Remove "invalid" netatmo observations with titanlib
 """
 
-net_points = titanlib.Points(net_lats, net_lons, net_elevs)
+net_points = titanlib.Points(net_lat, net_lon, net_oro)
 
 # SCT settings
 inner_radius = 50000
@@ -153,9 +116,9 @@ flags, sct, rep = titanlib.sct(net_points, net_values_0,
 index_valid_obs = np.where(flags == 0)[0]
 index_invalid_obs = np.where(flags != 0)[0]
 obsSize = index_valid_obs.shape[0]
-obs_lats = net_lats[index_valid_obs]
-obs_lons = net_lons[index_valid_obs]
-obs_elevs = net_elevs[index_valid_obs]
+obs_lat = net_lat[index_valid_obs]
+obs_lon = net_lon[index_valid_obs]
+obs_oro = net_oro[index_valid_obs]
 obs_values = net_values_0[index_valid_obs]
 
 # Date
@@ -179,6 +142,6 @@ with netCDF4.Dataset('observations.nc', 'w', format="NETCDF4") as file:
   cols.column_1 = "ObsErr"
   for jo in range(0, obsSize):
     time[jo,:] = [date.year, date.month, date.day, date.hour, date.minute, date.second]
-    loc[jo,:] = [obs_lons[jo], obs_lats[jo], obs_elevs[jo]]
+    loc[jo,:] = [obs_lon[jo], obs_lat[jo], obs_oro[jo]]
     cols[jo,0] = obs_values[jo]
-    cols[jo,1] = 1.2
+    cols[jo,1] = 1.0
