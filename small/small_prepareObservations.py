@@ -31,6 +31,8 @@ with netCDF4.Dataset('small_background.nc', 'r') as file:
   blon = file.variables['lon'][:,:]
   boro = file.variables['oro'][0,:,:]
   background = file.variables[forecast_variable][0,:,:]
+nx = blon.shape[1]
+ny = blon.shape[0]
 
 if pseudo_obs:
   # Pseudo-observation location, value and date
@@ -58,15 +60,25 @@ if pseudo_obs:
       cols[jobs,:] = [background[iy[jobs],ix[jobs]]+delta[jobs], 1.0]
 else:
   # Load observations
-  with netCDF4.Dataset('observations.nc', 'r') as file:
+  with netCDF4.Dataset('../observations.nc', 'r') as file:
     allLoc = file.variables['loc'][:,:]
     allCols = file.variables['cols'][:,:]
 
   # Get domain bounds
-  lonMin = np.min(blon)
-  lonMax = np.max(blon)
-  latMin = np.min(blat)
-  latMax = np.max(blat)
+  lonMinVec = []
+  lonMaxVec = []
+  for ix in range(0, nx):
+    lonMinVec.append(np.min(blon[:,ix]))
+    lonMaxVec.append(np.max(blon[:,ix]))
+  lonMin = min(lonMaxVec)
+  lonMax = max(lonMinVec)
+  latMinVec = []
+  latMaxVec = []
+  for iy in range(0, ny):
+    latMinVec.append(np.min(blat[iy,:]))
+    latMaxVec.append(np.max(blat[iy,:]))
+  latMin = min(latMaxVec)
+  latMax = max(latMinVec)
 
   # Keep observations inside the domain
   insideIobs = []

@@ -16,13 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("background", help="Background file")
 parser.add_argument("observations", help="Observations file")
 parser.add_argument("analysis", help="Analysis file")
-
-# Parse and print arguments
 args = parser.parse_args()
-print("Parameters:")
-for arg in vars(args):
-    if not arg is None:
-        print(" - " + arg + ": " + str(getattr(args, arg)))
 
 # Variable
 forecast_variable = "air_temperature_2m"

@@ -24,12 +24,12 @@
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
           "variables": ["oro"],
-          "filepath": "background_hr"
+          "filepath": "full_background"
         }
       },
       {
         "variables": ["air_temperature_2m_fakeLevels"],
-        "levels": "14"
+        "levels": "27"
       }
     ],
     "halo": "1"
@@ -39,7 +39,7 @@
       {
         "date": "2023-12-05T06:00:00Z",
         "variables": ["air_temperature_2m"],
-        "filepath": "background_hr"
+        "filepath": "full_background"
       }
     ]
   },
@@ -52,16 +52,29 @@
           "vert_coord": "vert_coord_1"
         }
       },
-      "read": {
+      "calibration": {
         "multivariate strategy": "univariate",
+        "horizontal length-scale": [
+          {
+            "group": "air_temperature_2m_fakeLevels",
+            "value": "6490.0"
+          }
+        ],
+        "vertical length-scale": [
+          {
+            "group": "air_temperature_2m_fakeLevels",
+            "value": "0.0"
+          }
+        ],
         "skip tests": "true",
-        "data file": "FastLAM",
-        "input model files": [
+        "number of layers": "1",
+        "resolution": "10.0",
+        "data file": "full_fastlam",
+        "output model files": [
           {
             "parameter": "normalization",
-            "number of components": "1",
             "file": {
-              "filepath": "FastLAM_normalization"
+              "filepath": "full_fastlam_normalization"
             }
           }
         ]
@@ -75,28 +88,28 @@
             "vert_coord": "vert_coord_0"
           }
         },
-        "fake levels": ["-200.0", "0.0", "200.0","400.0","600.0","800.0","1000.0","1200.0","1400.0","1600.0","1800.0","2000.0","2200.0", "2400.0"],
-        "vertical length-scale": "500.0"
-      },
-      {
-        "saber block name": "StdDev",
-        "read": {
-          "model file": {
-            "filepath": "stddev"
-          }
+        "calibration": {
+          "number of fake levels": "27",
+          "lowest fake level": "-200.0",
+          "highest fake level": "2400.0",
+          "vertical length-scale": "1785.0",
+          "output model files": [
+            {
+              "parameter": "rv",
+              "file": {
+                "filepath": "full_fakelevels_rv"
+              }
+            },
+            {
+              "parameter": "weight",
+              "file": {
+                "overriding variables": ["air_temperature_2m_fakeLevels"],
+                "filepath": "full_fakelevels_weight"
+              }
+            }
+          ]
         }
       }
     ]
-  },
-  "dirac": {
-    "lon": ["7.2"],
-    "lat": ["61.15"],
-    "level": ["1"],
-    "variable": ["air_temperature_2m"]
-  },
-  "output dirac": {
-    "date": "2023-12-05T06:00:00Z",
-    "variables": ["air_temperature_2m"],
-    "filepath": "dirac"
   }
 }

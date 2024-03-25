@@ -111,7 +111,6 @@ flags, sct, rep = titanlib.sct(net_points, net_values_0,
         num_min, num_max, inner_radius, outer_radius, num_iterations,
         num_min_prof, dzmin, dhmin , dz, t2pos, t2neg, eps2)
 
-
 # The valid and invalid observations
 index_valid_obs = np.where(flags == 0)[0]
 index_invalid_obs = np.where(flags != 0)[0]

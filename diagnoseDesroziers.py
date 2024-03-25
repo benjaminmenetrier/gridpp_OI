@@ -6,18 +6,23 @@
 
 #%%
 from alive_progress import alive_bar
+import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import netCDF4
-from scipy.optimize import curve_fit 
 from scipy.spatial import KDTree
 from sklearn.metrics import pairwise_distances
 
+# Parser
+parser = argparse.ArgumentParser()
+parser.add_argument("input", help="Input file")
+args = parser.parse_args()
+
 # Parameters
-diagnostic_points = 1 # 100
-diagnostic_radius = 1 # 20.0e3
-max_distance = 10.0e3
-distance_class_width = 1.0e3
+diagnostic_points = 1000
+diagnostic_radius = 20.0e3
+max_distance = 20.0e3
+distance_class_width = 2.0e3
 max_height = 100.0
 height_class_width = 100.0
 req = 6371.0e3
@@ -30,17 +35,31 @@ n_height = int(max_height/height_class_width)
 height_classes = np.zeros((n_height))
 height_classes[1:] = np.linspace(0, (n_height-2)*height_class_width, n_height-1)+height_class_width/2
 
-# Load background and observations
-with netCDF4.Dataset('observations_background.nc', 'r') as file:
-    loc = file.variables['loc'][:,:]
-    bkg_values = file.variables['cols'][:,1]
-    obs_values = file.variables['cols'][:,2]
-
-# Compute obs-bkg
-omb = obs_values-bkg_values
+# Load background
+with netCDF4.Dataset(args.input, 'r') as file:
+  loc = file.variables['loc'][:,:]
+  cols = file.variables['cols'][:,:]
+  ncol = cols.shape[1]
+  icolOmbg = -1
+  icolOman = -1
+  for icol in range(0, ncol):
+    colName = getattr(file.variables['cols'], 'column_' + str(icol))
+    if colName == "ombg":
+      icolOmbg = icol
+    if colName == "oman":
+      icolOman = icol
+  if icolOmbg == -1:
+    print("Cannot find ombg column")
+    exit()
+  if icolOman == -1:
+    print("Cannot find oman column")
+    exit()
+  ombg = cols[:,icolOmbg]
+  oman = cols[:,icolOman]
+anmbg = ombg-oman
 
 # Number of observations
-obsSize = len(obs_values)
+obsSize = len(ombg)
 
 # Convert coordinates to radians
 for iobs in range(0, obsSize):
@@ -71,9 +90,11 @@ for iobs in range(0, diagnostic_points):
   totalSize += len(lidx[iobs])
 
 # Initialize arrays
+var = np.zeros((diagnostic_points))
+meanOman = np.zeros((diagnostic_points))
 cov = np.zeros((n_distance, n_height, diagnostic_points))
-mean1 = np.zeros((n_distance, n_height, diagnostic_points))
-mean2 = np.zeros((n_distance, n_height, diagnostic_points))
+meanAnmbg = np.zeros((n_distance, n_height, diagnostic_points))
+meanOmbg = np.zeros((n_distance, n_height, diagnostic_points))
 card = np.zeros((n_distance, n_height, diagnostic_points))
 
 with alive_bar(totalSize) as bar:
@@ -96,56 +117,76 @@ with alive_bar(totalSize) as bar:
         if vdist < 1.0e-12:
           k = 0
         else:
-          k = int(vdist/height_class_width)+1
+          k = int(vdist/height_class_width)+1       
+        if i == 0 and k == 0:
+          if card[0,0,iobs] > 0.0:
+            var[iobs] += card[0,0,iobs]/(card[0,0,iobs]+1.0)*(oman[cidx[kobs]]-meanOman[iobs])*(ombg[lidx[iobs][jobs]]-meanOmbg[0,0,iobs])
+          meanOman[iobs] += 1.0/(card[0,0,iobs]+1.0)*(oman[cidx[kobs]]-meanOman[iobs])
         if i < n_distance and k < n_height:
           if card[i,k,iobs] > 0.0:
-            cov[i,k,iobs] += card[i,k,iobs]/(card[i,k,iobs]+1.0)*(omb[lidx[iobs][jobs]]-mean1[i,k,iobs])*(omb[cidx[kobs]]-mean2[i,k,iobs])
-          mean1[i,k,iobs] += 1.0/(card[i,k,iobs]+1.0)*(omb[lidx[iobs][jobs]]-mean1[i,k,iobs])
-          mean2[i,k,iobs] += 1.0/(card[i,k,iobs]+1.0)*(omb[cidx[kobs]]-mean2[i,k,iobs])
+            cov[i,k,iobs] += card[i,k,iobs]/(card[i,k,iobs]+1.0)*(anmbg[cidx[kobs]]-meanAnmbg[i,k,iobs])*(ombg[lidx[iobs][jobs]]-meanOmbg[i,k,iobs])
+          meanAnmbg[i,k,iobs] += 1.0/(card[i,k,iobs]+1.0)*(anmbg[cidx[kobs]]-meanAnmbg[i,k,iobs])
+          meanOmbg[i,k,iobs] += 1.0/(card[i,k,iobs]+1.0)*(ombg[lidx[iobs][jobs]]-meanOmbg[i,k,iobs])
           card[i,k,iobs] += 1.0
       bar()
 
 # Average covariances
+var_avg = 0.0
 cov_avg = np.zeros((n_distance, n_height))
 card_avg = np.zeros((n_distance, n_height))
 for iobs in range(0, diagnostic_points):
+  var_avg += var[iobs]
   for i in range(0, n_distance):
     for k in range(0, n_height):
       cov_avg[i,k] += cov[i,k,iobs]
       card_avg[i,k] += card[i,k,iobs]
 
 # Compute covariance
+if card_avg[0,0] > 1.0:
+  var_avg /= card_avg[0,0]-1.0
+print("var_avg: " + str(var_avg))
 for i in range(0, n_distance):
   for k in range(0, n_height):
     if card_avg[i,k] > 1.0:
       cov_avg[i,k] /= card_avg[i,k]-1.0
-      print("COV: " + str(i) + "," + str(k) + " => " + str(int(card_avg[i,k])) + " : " + str(cov_avg[i,k]))
-
-# TODO: remove that
-cov_avg[:,0] = [2.8965024175901606, 0.9098056663743298, 0.48921917597897324, 0.34930578704028675, 0.2673949594263285, 0.24784061487154901, 0.1903363138333212, 0.13249792450701287, 0.11251933066535823, 0.013294042586519778]
+print("cov_avg: " + str(cov_avg[:,0]))
 
 # Gaussian function for fit
 def func(x, a, sigma): 
   return a*np.exp(-(x**2)/(2.0*sigma**2))
 
+# Brute-force fit
+nAmp = 100
+amp = np.linspace(0.0, cov_avg[0], nAmp)
+nRad = 100
+rad = np.linspace(0.0, 3.0*max_distance, nRad)
+mseMin = 1.0e16
+for iAmp in range(0, nAmp):
+  for iRad in range(0, nRad):
+    if rad[iRad] > 0.0:
+      mse = 0.0
+      for ic in range(0, n_distance):
+        mse += (func(distance_classes[ic], amp[iAmp], rad[iRad])-cov_avg[ic,0])**2
+      if mse < mseMin:
+        mseMin = mse
+        ampOpt = amp[iAmp]
+        radOpt = rad[iRad]
+
 # Curve fit
-popt, pcov = curve_fit(func, distance_classes[1:], cov_avg[1:,0])
-print (popt) 
-popt = [1.0, 2000]
-cov_fit = func(distance_classes, popt[0], popt[1]) 
+cov_fit = func(distance_classes, ampOpt, radOpt)
+
+# Print results
+print("Sigma_o: " + str(np.sqrt(var_avg)))
+print("Sigma_b: " + str(np.sqrt(ampOpt)))
+print("L_b: " + str(radOpt*3.57))
 
 # Plot raw data
 fig,ax = plt.subplots(ncols=1, figsize=(6,4))
 ax.set_xlabel("Distance")
-ax.set_ylabel("HBHT + R")
+ax.set_ylabel("HBHT")
 ax.set_xlim([0,1.1*distance_classes[n_distance-1]])
 ax.set_ylim([0,1.1*cov_avg[0,0]])
 ax.scatter(distance_classes, cov_avg[:,0])
-ax.plot(distance_classes, cov_fit, c='r') 
+ax.plot(distance_classes, cov_fit, c='r')
 plt.show()
-#fig.savefig('model_fit.png')
-
-
-
-
-
+#fig.savefig('diagnoseDesroziers.png')

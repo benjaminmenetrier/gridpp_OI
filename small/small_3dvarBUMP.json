@@ -78,10 +78,10 @@
           "ObsType": "default",
           "ObsData": {
             "ObsDataInScreened": {
-              "filenames": ["small_observations"]
+              "filenames": ["small_observations_assim"]
             },
             "ObsDataOutScreened": {
-              "filename": "small_observations_3dvar"
+              "filename": "small_observations_assim_3dvar"
             },
             "obsvalue": "ObsVal"
           },
@@ -151,7 +151,7 @@
             }
           }
         },
-        "ninner": "25",
+        "ninner": "50",
         "gradient_norm_reduction": "1e-10",
         "test": "on",
         "diagnostics": {

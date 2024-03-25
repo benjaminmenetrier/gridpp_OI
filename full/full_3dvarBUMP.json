@@ -3,15 +3,15 @@
     "function space": "StructuredColumns",
     "grid": {
       "type": "regional",
-      "nx": "200",
-      "ny": "200",
+      "nx": "1796",
+      "ny": "2321",
       "dx": "1.0e3",
       "dy": "1.0e3",
-      "lonlat(centre)": ["7.2", "61.15"],
+      "lonlat(centre)": ["15.001164907304375", "63.50071790568658"],
       "projection": {
         "type": "lambert_conformal_conic",
-        "latitude0": "61.15",
-        "longitude0": "7.2",
+        "latitude0": "63.0",
+        "longitude0": "15.0",
         "radius": "6371000.0"
       },
       "y_numbering": "-1"
@@ -24,12 +24,8 @@
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
           "variables": ["oro"],
-          "filepath": "small_background"
+          "filepath": "full_background"
         }
-      },
-      {
-        "variables": ["air_temperature_2m_fakeLevels"],
-        "levels": "27"
       }
     ],
     "halo": "1"
@@ -46,55 +42,30 @@
           {
             "date": "2023-12-05T06:00:00Z",
             "variables": ["air_temperature_2m"],
-            "filepath": "small_background"
+            "filepath": "full_background"
           }
         ]
       },
       "Covariance": {
         "covariance": "SABER",
         "saber central block": {
-          "saber block name": "FastLAM",
-          "fields metadata": {
-            "air_temperature_2m_fakeLevels": {
-              "vert_coord": "vert_coord_1"
-            }
-          },
+          "saber block name": "BUMP_NICAS",
           "read": {
-            "multivariate strategy": "univariate",
-            "skip tests": "true",
-            "data file": "small_fastlam",
-            "input model files": [
-              {
-                "parameter": "normalization",
-                "number of components": "1",
-                "file": {
-                  "filepath": "small_fastlam_normalization"
-                }
-              }
-            ]
+            "drivers": {
+              "multivariate strategy": "univariate",
+              "read local nicas": "true"
+            },
+            "io": {
+              "files prefix": "small"
+            }
           }
         },
         "saber outer blocks": [
           {
-            "saber block name": "FakeLevels",
-            "read": {
-              "number of fake levels": "27",
-              "input model files": [
-                {
-                  "parameter": "weight",
-                  "file": {
-                    "overriding variables": ["air_temperature_2m_fakeLevels"],
-                    "filepath": "small_fakelevels_weight"
-                  }
-                }
-              ]
-            }
-          },
-          {
             "saber block name": "StdDev",
             "read": {
               "model file": {
-                "filepath": "small_stddev"
+                "filepath": "full_stddev"
               }
             }
           }
@@ -107,10 +78,10 @@
           "ObsType": "default",
           "ObsData": {
             "ObsDataInScreened": {
-              "filenames": ["small_observations"]
+              "filenames": ["full_observations_screened"]
             },
             "ObsDataOutScreened": {
-              "filename": "small_observations_3dvar"
+              "filename": "full_observations_assim_3dvar"
             },
             "obsvalue": "ObsVal"
           },
@@ -129,7 +100,7 @@
     "algorithm": "DRIPCG"
   },
   "output": {
-    "filepath": "small_analysis_3dvar",
+    "filepath": "full_analysis_3dvar",
     "date": "2023-12-05T06:00:00Z"
   },
   "variational": {
@@ -139,15 +110,15 @@
           "function space": "StructuredColumns",
           "grid": {
             "type": "regional",
-            "nx": "200",
-            "ny": "200",
+            "nx": "1796",
+            "ny": "2321",
             "dx": "1.0e3",
             "dy": "1.0e3",
-            "lonlat(centre)": ["7.2", "61.15"],
+            "lonlat(centre)": ["15.001164907304375", "63.50071790568658"],
             "projection": {
               "type": "lambert_conformal_conic",
-              "latitude0": "61.15",
-              "longitude0": "7.2",
+              "latitude0": "63.0",
+              "longitude0": "15.0",
               "radius": "6371000.0"
             },
             "y_numbering": "-1"
@@ -160,7 +131,7 @@
               "vert_coord from file": {
                 "date": "2023-12-05T06:00:00Z",
                 "variables": ["oro"],
-                "filepath": "small_background"
+                "filepath": "full_background"
               }
             },
             {
@@ -180,7 +151,7 @@
             }
           }
         },
-        "ninner": "25",
+        "ninner": "50",
         "gradient_norm_reduction": "1e-10",
         "test": "on",
         "diagnostics": {

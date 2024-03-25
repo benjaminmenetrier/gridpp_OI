@@ -24,7 +24,7 @@
         "vert_coord from file": {
           "date": "2023-12-05T06:00:00Z",
           "variables": ["oro"],
-          "filepath": "background_hr"
+          "filepath": "full_background"
         }
       }
     ],
@@ -34,17 +34,17 @@
   "Initial Condition": {
     "date": "2023-12-05T06:00:00Z",
     "variables": ["air_temperature_2m"],
-    "filepath": "background_hr"
+    "filepath": "full_hofx_input_field"
   },
   "Observations": {
     "ObsTypes": [{
       "ObsType": "default",
       "ObsData": {
         "ObsDataIn": {
-          "filenames": ["observations"]
+          "filenames": ["full_hofx_input_obs"]
         },
         "ObsDataOut": {
-          "filename": "observations_background"
+          "filename": "full_hofx_output_obs"
         },
         "obsvalue": "ObsHofX"
       },

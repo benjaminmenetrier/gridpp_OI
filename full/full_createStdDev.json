@@ -19,8 +19,13 @@
     "partitioner": "checkerboard",
     "groups": [
       {
-        "variables": ["air_temperature_2m", "oro"],
-        "levels": "1"
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["oro"],
+          "filepath": "full_background"
+        }
       }
     ],
     "halo": "0"
@@ -45,8 +50,13 @@
     "partitioner": "checkerboard",
     "groups": [
       {
-        "variables": ["air_temperature_2m", "oro"],
-        "levels": "1"
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["oro"],
+          "filepath": "full_background"
+        }
       }
     ],
     "halo": "0"
@@ -56,12 +66,12 @@
       "input": {
         "date": "2023-12-05T06:00:00Z",
         "variables": ["air_temperature_2m"],
-        "constant value": "0.7"
+        "constant value": "2.7"
       },
       "output": {
         "date": "2023-12-05T06:00:00Z",
         "variables": ["air_temperature_2m", "oro"],
-        "filepath": "stddev"
+        "filepath": "full_stddev"
       }
     }
   ]
