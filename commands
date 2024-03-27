@@ -1,8 +1,0 @@
-cd /home/benjaminm/build/oops-bundle/quench;make -j4;cd /home/benjaminm/code/gridpp_OI
-
-mpirun -n 4 ~/build/oops-bundle/bin/quench_convertstate.x convertToLR.json
-
-mpirun -n 4 ~/build/oops-bundle/bin/quench_error_covariance_toolbox.x prepareBackgroundError.json
-
-mpirun -n 4 ~/build/oops-bundle/bin/quench_variational.x 3dvar.json
-ncdiff -O analysis.nc background_hr.nc increment_3dvar.nc

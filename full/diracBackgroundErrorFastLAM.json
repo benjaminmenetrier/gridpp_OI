@@ -1,0 +1,107 @@
+{
+  "resolution": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "1796",
+      "ny": "2321",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
+      "lonlat(centre)": ["15.001164907304375", "63.50071790568658"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "63.0",
+        "longitude0": "15.0",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["oro"],
+          "filepath": "full/background"
+        }
+      },
+      {
+        "variables": ["air_temperature_2m_fakeLevels"],
+        "levels": "14"
+      }
+    ],
+    "halo": "1"
+  },
+  "Background": {
+    "state": [
+      {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m"],
+        "filepath": "full/background"
+      }
+    ]
+  },
+  "Covariance": {
+    "covariance": "SABER",
+    "saber central block": {
+      "saber block name": "FastLAM",
+      "fields metadata": {
+        "air_temperature_2m_fakeLevels": {
+          "vert_coord": "vert_coord_1"
+        }
+      },
+      "read": {
+        "multivariate strategy": "univariate",
+        "skip tests": "true",
+        "data file": "full/fastlam",
+        "input model files": [
+          {
+            "parameter": "normalization",
+            "number of components": "1",
+            "file": {
+              "filepath": "full/fastlam_normalization"
+            }
+          }
+        ]
+      }
+    },
+    "saber outer blocks": [
+      {
+        "saber block name": "FakeLevels",
+        "read": {
+          "number of fake levels": "14",
+          "input model files": [
+            {
+              "parameter": "weight",
+              "file": {
+                "overriding variables": ["air_temperature_2m_fakeLevels"],
+                "filepath": "full/fakelevels_weight"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "saber block name": "StdDev",
+        "read": {
+          "model file": {
+            "filepath": "full/stddev"
+          }
+        }
+      }
+    ]
+  },
+  "dirac": {
+    "lon": ["15.001164907304375"],
+    "lat": ["63.50071790568658"],
+    "level": ["1"],
+    "variable": ["air_temperature_2m"]
+  },
+  "output dirac": {
+    "date": "2023-12-05T06:00:00Z",
+    "variables": ["air_temperature_2m"],
+    "filepath": "full/dirac_fastlam"
+  }
+}

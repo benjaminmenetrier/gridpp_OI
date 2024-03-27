@@ -1,0 +1,58 @@
+{
+  "Geometry": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "_NX_",
+      "ny": "_NY_",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
+      "lonlat(centre)": ["_LONCENTRE_", "_LATCENTRE_"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "_LAT0_",
+        "longitude0": "_LON0_",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["oro"],
+          "filepath": "_PREFIX_/background"
+        }
+      }
+    ],
+    "halo": "1"
+  },
+  "Model": {},
+  "Initial Condition": {
+    "date": "2023-12-05T06:00:00Z",
+    "variables": ["air_temperature_2m"],
+    "filepath": "_PREFIX_/_HOFX_FIELD_"
+  },
+  "Observations": {
+    "ObsTypes": [{
+      "ObsType": "default",
+      "ObsData": {
+        "ObsDataIn": {
+          "filenames": ["_PREFIX_/_HOFX_INPUT_OBS_"]
+        },
+        "ObsDataOut": {
+          "filename": "_PREFIX_/_HOFX_OUTPUT_OBS_"
+        },
+        "obsvalue": "ObsHofX"
+      },
+      "variables": ["air_temperature_2m"]
+    }]
+  },
+  "Assimilation Window": {
+    "Begin": "2023-12-05T06:00:00Z",
+    "Length": "PT0S"
+  }
+}

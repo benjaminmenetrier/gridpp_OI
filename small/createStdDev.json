@@ -1,0 +1,78 @@
+{
+  "input geometry": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "200",
+      "ny": "200",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
+      "lonlat(centre)": ["9.5", "56"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "56",
+        "longitude0": "9.5",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["oro"],
+          "filepath": "small/background"
+        }
+      }
+    ],
+    "halo": "0"
+  },
+  "output geometry": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "200",
+      "ny": "200",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
+      "lonlat(centre)": ["9.5", "56"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "56",
+        "longitude0": "9.5",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["oro"],
+          "filepath": "small/background"
+        }
+      }
+    ],
+    "halo": "0"
+  },
+  "states": [
+    {
+      "input": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m"],
+        "constant value": "0.39"
+      },
+      "output": {
+        "date": "2023-12-05T06:00:00Z",
+        "variables": ["air_temperature_2m", "oro"],
+        "filepath": "small/stddev"
+      }
+    }
+  ]
+}

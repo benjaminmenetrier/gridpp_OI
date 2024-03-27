@@ -1,0 +1,201 @@
+{
+  "resolution": {
+    "function space": "StructuredColumns",
+    "grid": {
+      "type": "regional",
+      "nx": "200",
+      "ny": "200",
+      "dx": "1.0e3",
+      "dy": "1.0e3",
+      "lonlat(centre)": ["9.5", "56"],
+      "projection": {
+        "type": "lambert_conformal_conic",
+        "latitude0": "56",
+        "longitude0": "9.5",
+        "radius": "6371000.0"
+      },
+      "y_numbering": "-1"
+    },
+    "partitioner": "checkerboard",
+    "groups": [
+      {
+        "variables": ["air_temperature_2m"],
+        "levels": "1",
+        "vert_coord from file": {
+          "date": "2023-12-05T06:00:00Z",
+          "variables": ["oro"],
+          "filepath": "small/background"
+        }
+      },
+      {
+        "variables": ["air_temperature_2m_fakeLevels"],
+        "levels": "14"
+      }
+    ],
+    "halo": "1"
+  },
+  "model": {},
+  "cost_function": {
+    "cost_type": "3D-Var",
+    "window_begin": "2023-12-05T06:00:00Z",
+    "window_length": "PT0H",
+    "variables": ["air_temperature_2m"],
+    "Jb": {
+      "Background": {
+        "state": [
+          {
+            "date": "2023-12-05T06:00:00Z",
+            "variables": ["air_temperature_2m"],
+            "filepath": "small/background"
+          }
+        ]
+      },
+      "Covariance": {
+        "covariance": "SABER",
+        "saber central block": {
+          "saber block name": "FastLAM",
+          "fields metadata": {
+            "air_temperature_2m_fakeLevels": {
+              "vert_coord": "vert_coord_1"
+            }
+          },
+          "read": {
+            "multivariate strategy": "univariate",
+            "skip tests": "true",
+            "data file": "small/fastlam",
+            "input model files": [
+              {
+                "parameter": "normalization",
+                "number of components": "1",
+                "file": {
+                  "filepath": "small/fastlam_normalization"
+                }
+              }
+            ]
+          }
+        },
+        "saber outer blocks": [
+          {
+            "saber block name": "FakeLevels",
+            "read": {
+              "number of fake levels": "14",
+              "input model files": [
+                {
+                  "parameter": "weight",
+                  "file": {
+                    "overriding variables": ["air_temperature_2m_fakeLevels"],
+                    "filepath": "small/fakelevels_weight"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "saber block name": "StdDev",
+            "read": {
+              "model file": {
+                "filepath": "small/stddev"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "Jo": {
+      "ObsTypes": [
+        {
+          "ObsType": "default",
+          "ObsData": {
+            "ObsDataInScreened": {
+              "filenames": ["small/observations_assim"]
+            },
+            "ObsDataOutScreened": {
+              "filename": "small/observations_assim_3dvar"
+            },
+            "obsvalue": "ObsVal"
+          },
+          "Covariance": {
+            "ObsErrorCovariance": {
+              "covariance": "diagonal",
+              "obserror": "ObsErr"
+            }
+          },
+          "variables": ["air_temperature_2m"]
+        }
+      ]
+    }
+  },
+  "minimizer": {
+    "algorithm": "DRIPCG"
+  },
+  "output": {
+    "filepath": "small/analysis_3dvar",
+    "date": "2023-12-05T06:00:00Z"
+  },
+  "variational": {
+    "iteration": [
+      {
+        "resolution": {
+          "function space": "StructuredColumns",
+          "grid": {
+            "type": "regional",
+            "nx": "200",
+            "ny": "200",
+            "dx": "1.0e3",
+            "dy": "1.0e3",
+            "lonlat(centre)": ["9.5", "56"],
+            "projection": {
+              "type": "lambert_conformal_conic",
+              "latitude0": "56",
+              "longitude0": "9.5",
+              "radius": "6371000.0"
+            },
+            "y_numbering": "-1"
+          },
+          "partitioner": "checkerboard",
+          "groups": [
+            {
+              "variables": ["air_temperature_2m"],
+              "levels": "1",
+              "vert_coord from file": {
+                "date": "2023-12-05T06:00:00Z",
+                "variables": ["oro"],
+                "filepath": "small/background"
+              }
+            },
+            {
+              "variables": ["air_temperature_2m_fakeLevels"],
+              "levels": "14"
+            }
+          ],
+          "halo": "1"
+        },
+        "timeslot": "PT0H",                
+        "linearmodel": {
+          "version": "default",
+          "tstep": "PT0H",
+          "trajectory": {
+            "forcing": {
+              "variables": ["air_temperature_2m"]
+            }
+          }
+        },
+        "ninner": "50",
+        "gradient_norm_reduction": "1e-10",
+        "test": "on",
+        "diagnostics": {
+          "departures": {
+            "obsvalue": "ombg"
+          }
+        }
+      }
+    ]
+  },
+  "final": {
+    "diagnostics": {
+      "departures": {
+        "obsvalue": "oman"
+      }
+    }
+  }
+}
